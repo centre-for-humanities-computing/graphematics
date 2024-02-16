@@ -2,6 +2,19 @@ import pandas as pd
 import os
 import argparse
 
+def input_parse():
+    parser = argparse.ArgumentParser(description='Process Excel files and calculate distance.')
+    parser.add_argument("-f", 
+                        "--files", 
+                        nargs='+', 
+                        help='Input Excel files')
+    parser.add_argument("-o", 
+                        '--outpath', 
+                        help='Output Excel file path',
+                        default='output/distance/distance_result.xlsx')
+
+    args = parser.parse_args()
+
 def process_files(file_paths, out_path):
     dfs = []
     file_names = []
@@ -37,11 +50,6 @@ def process_files(file_paths, out_path):
     print(result_df)
 
 def main():
-    parser = argparse.ArgumentParser(description='Process Excel files and calculate distance.')
-    parser.add_argument('files', nargs='+', help='Input Excel files')
-    parser.add_argument('--outpath', help='Output Excel file path', default='output/distance/distance_result.xlsx')
-
-    args = parser.parse_args()
     process_files(args.files, args.outpath)
 
 if __name__ == "__main__":

@@ -1,8 +1,25 @@
+import argparse
 import pandas as pd
+
+def input_parse():
+    # Define argparse to get input, output paths
+    parser = argparse.ArgumentParser(description="Process data and calculate percentages.")
+    parser.add_argument("-i", 
+                        "--input_path", 
+                        required=True, 
+                        help="Path to the input Excel file")
+    parser.add_argument("-o", 
+                        "--output_path", 
+                        required=True, 
+                        help="Path to save the output Excel file")
+    args = parser.parse_args()
+    
+    return args
 
 def read_data(file_path):
     # Read data from Excel file
     df = pd.read_excel(file_path)
+    
     return df
 
 def transform_data(df, frequency_columns):
@@ -41,13 +58,7 @@ def save_data(df, out_path):
     df.to_excel(out_path, index=False)
 
 if __name__ == "__main__":
-    import argparse
-
-    # Define argparse to get input, output paths
-    parser = argparse.ArgumentParser(description="Process data and calculate percentages.")
-    parser.add_argument("-i", "--input_path", required=True, help="Path to the input Excel file")
-    parser.add_argument("-o", "--output_path", required=True, help="Path to save the output Excel file")
-    args = parser.parse_args()
+    args = input_parse()
 
     # Read data
     data_frame = read_data(args.input_path)
@@ -63,5 +74,3 @@ if __name__ == "__main__":
 
     # Save data
     save_data(data_with_percentages, args.output_path)
-
-    print(data_with_percentages)

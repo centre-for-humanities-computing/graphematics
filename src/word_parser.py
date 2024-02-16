@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import argparse
@@ -9,17 +10,22 @@ def input_parse():
     parser = argparse.ArgumentParser()
     #add arguments
     parser.add_argument("-f", "--filename", help = "pick which dataset you want", type = str)
-    parser.add_argument("-o", '--output', type=str, help='Output file name for the bar graph', default='vowel_frequency.png')
     # save arguments to be parsed from the CLI
     args = parser.parse_args()
 
     return args
-vowel_frequency = {}
+
 # Define the function
 def parse(s: str) -> list[str]:
     tokens = []
     current = 0
     token_start = -1
+
+    # Define list case-sensitive list of Vowels, without lowercasing
+    vowels = ["a", "ä", "æ", "e", "i", "o", "ö", "ø", "u", "ü", "y", 
+              "A", "Ä", "Æ", "E", "I", "O", "Ö", "Ø", "U", "Ü", "Y"]
+    vowel_frequency = {}
+
     # getting everything wrapped by : :  their own cell
     while current < len(s):
         if s[current] == ":":
@@ -91,7 +97,8 @@ def parse(s: str) -> list[str]:
 
         elif token_start == -1:
             # Check if the current and next characters are special strings
-            special_strings = ["‖i‖", "‖y‖", "‖u‖", "‖j‖", "‖v‖", "‖w‖", "‖I‖", "‖Y‖", "‖U‖", "‖J‖", "‖V‖", "‖W‖"]
+            special_strings = ["‖i‖", "‖y‖", "‖u‖", "‖j‖", "‖v‖", "‖w‖", 
+                               "‖I‖", "‖Y‖", "‖U‖", "‖J‖", "‖V‖", "‖W‖"]
             for string in special_strings:
                 if s.startswith(string, current):
                     tokens.append(string)
@@ -130,12 +137,6 @@ def parse(s: str) -> list[str]:
 
     return tokens, vowel_frequency
 
-
-
-
-# Define list case-sensitive list of Vowels, without lowercasing
-vowels = ["a", "ä", "æ", "e", "i", "o", "ö", "ø", "u", "ü", "y", "A", "Ä", "Æ", "E", "I", "O", "Ö", "Ø", "U", "Ü", "Y"]
-
 # Adding row of NaN underneath every row 
 def Add_Empty_Values(df):
     empty_values = np.full_like(df.values, np.nan)
@@ -148,9 +149,7 @@ def main():
     args = input_parse()
 
     # define paths
-    #path = pathlib.Path(__file__)
-    #datapath = path.parents[1]  / "data" / "Wordlists" / args.filename
-    datapath = f"data/Wordlists/{args.filename}"
+    datapath = os.path.join("data", "1_wordlists", args.filename)
     df = pd.read_excel(datapath)
 
     # apply parse function
@@ -170,12 +169,11 @@ def main():
 
     fin_df = ordered_results.drop(col_remove, axis=1)
 
-    outpath = "output"
+    outpath = os.path.join("data", "2_segmented_wordlists", f"segmented_{args.filename}")
     #save to excel format
-    fin_df.to_excel(f"data/segmented_wordlists/{args.filename}", index=False)
-    print(fin_df)
+    fin_df.to_excel(outpath, index=False)
+    print(f"\n[INFO]: The word parser results has been saved to {outpath}\n")
     
-
 
 if __name__ == "__main__":
     main()
