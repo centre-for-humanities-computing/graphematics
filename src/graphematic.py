@@ -15,14 +15,16 @@ def input_parse():
 
     args = parser.parse_args()
 
-def process_files(file_paths, out_path):
+    return args
+
+def process_files(input_names, out_path):
     dfs = []
     file_names = []
 
     # Load dataframes from Excel files
-    for file_path in file_paths:
-        file_name = os.path.splitext(os.path.basename(file_path))[0]
+    for file_name in input_names:
         file_names.append(file_name)
+        file_path = os.path.join("data", "6_boxes", file_name)
         dfs.append(pd.read_excel(file_path))
 
     # Extract frequency column headers
@@ -41,7 +43,7 @@ def process_files(file_paths, out_path):
 
     # Add two summary rows to the "distance" column
     result_df.loc['Total', 'distance'] = result_df['distance'].sum()
-    result_df.loc['Average', 'distance'] = result_df.loc['Total', 'distance'] / len(file_paths)
+    result_df.loc['Average', 'distance'] = result_df.loc['Total', 'distance'] / len(input_names)
 
     # Save to Excel
     result_df.to_excel(out_path, index=False)
@@ -50,6 +52,8 @@ def process_files(file_paths, out_path):
     print(result_df)
 
 def main():
+    args = input_parse()
+    print(args.outfile)
     outpath = os.path.join("output", "distance", args.outfile)
     process_files(args.files, outpath)
 

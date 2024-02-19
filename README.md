@@ -76,7 +76,7 @@ This is created using the following script:
 python src/sound_position.py --filename FILENAME
 ```
 
-The output from this step is saved in the folder called [```output/clustered_graph_list```](output/clusted_graph_list).
+The output from this step is saved in the folder called [```output/clustered_graph_list```](output/clusted).
 
 ### 6. Manually rearranging data
 
@@ -96,9 +96,40 @@ python src/leading_graph.py --filename FILENAME --output FILENAME
 
 The result from this script will be saved in the folder called [```data/6_boxes```](data/6_boxes/).
 
-### 7b. 
+### 7b. Calculating distances
 
-To get the graphematic distances you run the graphematic.py script followed by the files you want to do it on, as well as the –-outpath command, which defines where and under which name the resulting file will be saved. 
-The files should be given their relative path. 
+We can finally calculate the *graphemic distance* between any two graphemes as extracted from a document using the previous steps. To do this, we specify specficially which graphemes we wish to compare.
 
-Also enclosed in the repository is a script that takes a segmented wordlist and turns it back into a normal wordlist, but that might not be necessary. 
+To do this, we run the following code:
+
+```bash
+python3.11 src/graphematic.py --files FILE1 FILE2 ... --outfile FILENAME
+```
+
+For example, to compare hypothetical results for *{â}_closed_syllable* vs *{â}_open_syllable*:
+
+```bash
+python3.11 src/graphematic.py --files {â}_closed_syllable.xlsx {â}_open_syllable.xlsx --outfile results.xlsx
+```
+
+In any case, the results are saved in the folder called [```output/distance```](output/distance/).
+
+### 8. Visualizing vowel distribution
+
+Finally, we can create simple barplots to show the distribution of vowels and vowel clusters in our original document. For this, we only need the segmented wordlist created as part of step two above. 
+
+We can present the results either by ordering the vowel (clusters) alphabetically, or in order of descending size. 
+
+To create results with vowels arranged alphabetically:
+
+```bash
+python src/bar_plot.py --filename FILENAME --alphabetical
+```
+
+To plot based on descending frequency, simply remove the final flag:
+
+```bash
+python src/bar_plot.py --filename FILENAME
+```
+
+In each case, the visualizations are saved into the folder called [```output/graphs```](output/graphs/). A table of the same results is saved alongside this in the folder called [```output/frequencies```](output/frequencies).
