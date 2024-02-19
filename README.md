@@ -1,4 +1,20 @@
-This repository contains a collection of string processing and visualization scripts with the purpose to follow the steps of the graphematics handbook.
+# Graphematic Analysis
+
+This repository contains a collection of string processing and visualization scripts with the purpose to follow the steps of the *_Handbuch der ..._*.
+
+The Python code in this repository can be used to replicate the analysis outlined in the handbook, with individual scripts responsible for performing separate steps of the analysis. 
+
+This approach is not entirely automated and requires manual input and inspection of files at certain steps. Where necessary, those steps are outlined below.
+
+## Requirements
+
+In order to run this code locally on your own computer, it is recommended that you have Python ≥ 3.9 installed. 
+
+<details>
+<summary> Advanced users</summary>
+We recommend installing packages from the requirements.txt file in a virtual environment to avoid potential conflicts with existing Python installations. A minimal script for this is provided in setup.sh, which should be satisfactory for macOS and Linux. For Windows users, we recommend enabling the [Windows Subsytem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about).
+</details>
+
 
 The first step is running the ´´´word_parser.py´´´ script, which takes data from the ´´´data/Wordlists´´´ folder and segments them so they can be annotated. Run this script by adding the 
 "-f" argument to the commandline, which should be the name of the wordlist you want to segment. As long as the data is in the correct folder, there is no need to specify which folder it is in.
