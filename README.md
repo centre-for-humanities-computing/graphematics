@@ -58,7 +58,7 @@ To produce the parsed, segmented wordlist, we run the following:
 python src/word_parser.py --filename FILENAME
 ```
 
-The results from this script are saved in the folder [```data/3_parsed_segmented](data/3_parsed_segmented/).
+The results from this script are saved in the folder [```data/3_parsed_segmented```](data/3_parsed_segmented/).
 
 ### 4. Annotating the segments
 
