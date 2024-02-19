@@ -2,8 +2,6 @@ import os
 import pandas as pd
 import numpy as np
 import argparse
-import pathlib
-import matplotlib.pyplot as plt
 
 
 def input_parse():
@@ -125,17 +123,17 @@ def parse(s: str) -> list[str]:
 
                     current = next_index - 1  # Update current index
                     # Update the vowel_frequency dictionary
-                    if tokens[-1] in vowel_frequency:
-                        vowel_frequency[tokens[-1]] += 1
-                    else:
-                        vowel_frequency[tokens[-1]] = 1
+                    #if tokens[-1] in vowel_frequency:
+                    #    vowel_frequency[tokens[-1]] += 1
+                    #else:
+                    #    vowel_frequency[tokens[-1]] = 1
 
                 else:
                     tokens.append(s[current])
 
         current += 1
 
-    return tokens, vowel_frequency
+    return tokens
 
 # Adding row of NaN underneath every row 
 def Add_Empty_Values(df):
@@ -149,8 +147,9 @@ def main():
     args = input_parse()
 
     # define paths
-    datapath = os.path.join("data", "1_wordlists", args.filename)
+    datapath = os.path.join("data", "2_segmented_wordlists", args.filename)
     df = pd.read_excel(datapath)
+    df = df.dropna()
 
     # apply parse function
     df["ParsedTokens"] = df['Token'].apply(parse)
@@ -169,7 +168,7 @@ def main():
 
     fin_df = ordered_results.drop(col_remove, axis=1)
 
-    outpath = os.path.join("data", "2_segmented_wordlists", f"segmented_{args.filename}")
+    outpath = os.path.join("data", "3_parsed_segmented", f"segmented_{args.filename}")
     #save to excel format
     fin_df.to_excel(outpath, index=False)
     print(f"\n[INFO]: The word parser results has been saved to {outpath}\n")

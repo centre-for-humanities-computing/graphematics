@@ -23,7 +23,7 @@ def input_parse():
 def main():
     # intialise arguments 
     args = input_parse()
-    inpath = os.path.join("data", "3_annotated_segmented", args.filename)
+    inpath = os.path.join("data", "4_annotated_segmented", args.filename)
     # Step 1: Read the Excel file into a DataFrame
     df = pd.read_excel(inpath)
     col_remove = ["Label", "Translation", "Notes"]
