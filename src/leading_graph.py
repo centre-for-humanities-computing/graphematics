@@ -5,11 +5,11 @@ def input_parse():
     # Define argparse to get input, output paths
     parser = argparse.ArgumentParser(description="Process data and calculate percentages.")
     parser.add_argument("-i", 
-                        "--input_path", 
+                        "--input_file", 
                         required=True, 
                         help="Path to the input Excel file")
     parser.add_argument("-o", 
-                        "--output_path", 
+                        "--output_file", 
                         required=True, 
                         help="Path to save the output Excel file")
     args = parser.parse_args()
@@ -59,9 +59,9 @@ def save_data(df, out_path):
 
 if __name__ == "__main__":
     args = input_parse()
-
     # Read data
-    data_frame = read_data(args.input_path)
+    inpath = os.path.join("data", "5_boxes_raw", args.input_file)
+    data_frame = read_data(inpath)
 
     # Identify frequency columns dynamically
     frequency_columns = [column for column in data_frame.columns if "frequency" in column]
@@ -73,4 +73,5 @@ if __name__ == "__main__":
     data_with_percentages = calculate_percentage(transformed_data, frequency_columns)
 
     # Save data
-    save_data(data_with_percentages, args.output_path)
+    outpath = os.path.join("data", "6_boxes", args.output_file)
+    save_data(data_with_percentages, outpath)

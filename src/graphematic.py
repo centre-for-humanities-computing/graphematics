@@ -9,9 +9,9 @@ def input_parse():
                         nargs='+', 
                         help='Input Excel files')
     parser.add_argument("-o", 
-                        '--outpath', 
+                        '--outfile', 
                         help='Output Excel file path',
-                        default='output/distance/distance_result.xlsx')
+                        default='distance_result.xlsx')
 
     args = parser.parse_args()
 
@@ -50,7 +50,8 @@ def process_files(file_paths, out_path):
     print(result_df)
 
 def main():
-    process_files(args.files, args.outpath)
+    outpath = os.path.join("output", "distance", args.outfile)
+    process_files(args.files, outpath)
 
 if __name__ == "__main__":
     main()
