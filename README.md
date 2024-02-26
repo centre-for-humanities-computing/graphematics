@@ -1,6 +1,6 @@
 [![DOI](https://zenodo.org/badge/756283175.svg)](https://zenodo.org/doi/10.5281/zenodo.10678174)
 
-# Graphematic Analysis
+# Graphemic Analysis
 
 This repository contains a collection of string processing and visualization scripts with the purpose to follow the steps of the **_Handbuch für die graphematisch-phonologische Analyse vormoderner niederdeutschen und niederländischen Texte_**.
 
