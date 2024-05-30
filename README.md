@@ -116,22 +116,24 @@ python3.11 src/graphematic.py --files {â}_closed_syllable.xlsx {â}_open_syllab
 
 In any case, the results are saved in the folder called [```output/distance```](output/distance/).
 
-### 8. Visualizing vowel distribution
+### 8. Visualizing vowel and consonant distributions
 
-Finally, we can create simple barplots to show the distribution of vowels and vowel clusters in our original document. For this, we only need the segmented wordlist created as part of step two above. 
+Finally, we can create simple barplots to show the distribution of vowels, consonants, vowel clusters and consonant clusters in our original document. For this, we only need the segmented wordlist created as part of step two above. 
 
-We can present the results either by ordering the vowel (clusters) alphabetically, or in order of descending size. 
+Focusing just on vowels, we can present the results either by ordering the vowel (clusters) alphabetically, or in order of descending size. 
 
 To create results with vowels arranged alphabetically:
 
 ```bash
-python src/bar_plot.py --filename FILENAME --alphabetical
+python src/vowel_plot.py --filename FILENAME --alphabetical
 ```
 
 To plot based on descending frequency, simply remove the final flag:
 
 ```bash
-python src/bar_plot.py --filename FILENAME
+python src/vowel_plot.py --filename FILENAME
 ```
+
+For consonants, the relevant script is ```src/consonants_plot.py```, which can be run in the same way.
 
 In each case, the visualizations are saved into the folder called [```output/graphs```](output/graphs/). A table of the same results is saved alongside this in the folder called [```output/frequencies```](output/frequencies).
