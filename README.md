@@ -2,7 +2,7 @@
 
 # Graphematic Analysis
 
-This repository contains a collection of string processing and visualization scripts with the purpose to follow the steps of the *_Handbuch der ..._*.
+This repository contains a collection of string processing and visualization scripts with the purpose to follow the steps of the *_Handbuch zur graphematischen Rekonstruktion_*.
 
 The Python code in this repository can be used to replicate the analysis outlined in the handbook, with individual scripts responsible for performing separate steps of the analysis. 
 
