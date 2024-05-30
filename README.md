@@ -1,8 +1,8 @@
 [![DOI](https://zenodo.org/badge/756283175.svg)](https://zenodo.org/doi/10.5281/zenodo.10678174)
 
-# Graphemic Analysis
+# Graphematic Analysis
 
-This repository contains a collection of string processing and visualization scripts with the purpose to follow the steps of the **_Handbuch für die graphematisch-phonologische Analyse vormoderner niederdeutschen und niederländischen Texte_**.
+This repository contains a collection of string processing and visualization scripts with the purpose to follow the steps of the *_Handbuch der ..._*.
 
 The Python code in this repository can be used to replicate the analysis outlined in the handbook, with individual scripts responsible for performing separate steps of the analysis. 
 
@@ -62,8 +62,61 @@ python src/word_parser.py --filename FILENAME
 
 The results from this script are saved in the folder [```data/3_parsed_segmented```](data/3_parsed_segmented/).
 
+### 4. Annotating the segments
 
-### 4. Visualizing vowel distribution
+The outputs from the previous step are manually inspected and annotated according to the instructions outlined in the *Handbuch*. In the resulting file, we have all of the individual graphs in the document aligned with their specific sound position. 
+
+This annotated, segmented wordlist should be saved in the folder [```data/4_annotated_segmented```](data/4_annotated_segmented/).
+
+### 5. Clustering sound_positions
+
+We then take the annotated, segmented wordlist and calculate the occurrence of different sound positions in the new document. The output from this is a table showing all occurrences of each individual sound position, the words in which those occur, and the number of occurrences (of each word).
+
+This is created using the following script:
+
+```bash
+python src/sound_position.py --filename FILENAME
+```
+
+The output from this step is saved in the folder called [```output/clustered_graph_list```](output/clusted).
+
+### 6. Manually rearranging data
+
+As outlined in the *Handbuch*, the next step is to manually sort and re-arrange these outputs according to morpheme type and allographs. 
+
+The output from this step should be saved in the folder [```data/5_boxes_raw```](data/5_boxes_raw/).
+
+### 7a. Calculating leading graphs
+
+The next step is to calculate the *leading graph* - in other words, the allograph which covers more than 50% of occurences in the original document.
+
+To calculate this value, we run the following, changing the filenames as you please:
+
+```bash
+python src/leading_graph.py --filename FILENAME --output FILENAME
+```
+
+The result from this script will be saved in the folder called [```data/6_boxes```](data/6_boxes/).
+
+### 7b. Calculating distances
+
+We can finally calculate the *graphemic distance* between any two graphemes as extracted from a document using the previous steps. To do this, we specify specficially which graphemes we wish to compare.
+
+To do this, we run the following code:
+
+```bash
+python3.11 src/graphematic.py --files FILE1 FILE2 ... --outfile FILENAME
+```
+
+For example, to compare hypothetical results for *{â}_closed_syllable* vs *{â}_open_syllable*:
+
+```bash
+python3.11 src/graphematic.py --files {â}_closed_syllable.xlsx {â}_open_syllable.xlsx --outfile results.xlsx
+```
+
+In any case, the results are saved in the folder called [```output/distance```](output/distance/).
+
+### 8. Visualizing vowel distribution
 
 Finally, we can create simple barplots to show the distribution of vowels and vowel clusters in our original document. For this, we only need the segmented wordlist created as part of step two above. 
 
@@ -82,57 +135,3 @@ python src/bar_plot.py --filename FILENAME
 ```
 
 In each case, the visualizations are saved into the folder called [```output/graphs```](output/graphs/). A table of the same results is saved alongside this in the folder called [```output/frequencies```](output/frequencies).
-
-### 5. Annotating the graphs
-
-The outputs from the previous step are manually inspected and annotated according to the instructions outlined in the *Handbuch*. In the resulting file, we have all of the individual graphs in the document aligned with their specific sound position. 
-
-This annotated, segmented wordlist should be saved in the folder [```data/4_annotated_segmented```](data/4_annotated_segmented/).
-
-### 6. Clustering sound_positions
-
-We then take the annotated, segmented wordlist and calculate the occurrence of different sound positions in the new document. The output from this is a table showing all occurrences of each individual sound position, the words in which those occur, and the number of occurrences (of each word).
-
-This is created using the following script:
-
-```bash
-python src/sound_position.py --filename FILENAME
-```
-
-The output from this step is saved in the folder called [```output/clustered_graph_list```](output/clusted).
-
-### 7. Manually rearranging data
-
-As outlined in the *Handbuch*, the next step is to manually sort and re-arrange these outputs according to morpheme type and allographs. 
-
-The output from this step should be saved in the folder [```data/5_boxes_raw```](data/5_boxes_raw/).
-
-### 8a. Calculating leading graphs
-
-The next step is to calculate the *leading graph* - in other words, the allograph which covers more than 50% of occurences in the original document.
-
-To calculate this value, we run the following, changing the filenames as you please:
-
-```bash
-python src/leading_graph.py --filename FILENAME --output FILENAME
-```
-
-The result from this script will be saved in the folder called [```data/6_boxes```](data/6_boxes/).
-
-### 8b. Calculating distances
-
-We can finally calculate the *graphemic distance* between any two graphemes as extracted from a document using the previous steps. To do this, we specify specficially which graphemes we wish to compare.
-
-To do this, we run the following code:
-
-```bash
-python3.11 src/graphematic.py --files FILE1 FILE2 ... --outfile FILENAME
-```
-
-For example, to compare hypothetical results for *{â}_closed_syllable* vs *{â}_open_syllable*:
-
-```bash
-python3.11 src/graphematic.py --files {â}_closed_syllable.xlsx {â}_open_syllable.xlsx --outfile results.xlsx
-```
-
-In any case, the results are saved in the folder called [```output/distance```](output/distance/).

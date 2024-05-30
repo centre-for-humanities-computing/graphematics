@@ -26,8 +26,8 @@ def main():
     inpath = os.path.join("data", "4_annotated_segmented", args.filename)
     # Step 1: Read the Excel file into a DataFrame
     df = pd.read_excel(inpath)
-    col_remove = ["Label", "Translation", "Notes"]
-    df.drop(columns=col_remove, inplace=True)
+    #col_remove = ["Label", "Translation", "Notes"]
+    #df.drop(columns=col_remove, inplace=True)
 
     # get the sound position list
     exclude_chars = ['#', '<de>', '<en>', '[ig]', 'h', 'l', 'v','|ß|','ü']
@@ -38,8 +38,8 @@ def main():
     # Iterate through every two rows in the dataframe
     for i in range(0, len(df), 2):
         # Extract the word and frequency from the first row
-        word = df.iloc[i, 0]
-        frequency = df.iloc[i, 1]
+        word = ''.join([x for x in list(df.iloc[i,1:].values) if pd.notnull(x)])
+        frequency = df.iloc[i, 0]
 
         # Initialize an empty list to store sound positions for the current word
         sound_positions = []
@@ -72,7 +72,7 @@ def main():
     result_df.sort_values(by='sound_position', inplace=True)
 
     # Save the DataFrame to an Excel file
-    outpath = os.path.join("output", "clustered_graph_list", args.filename)
+    outpath = os.path.join("output", "clustered", args.filename)
     result_df.to_excel(outpath, index=False)
 
     print(f"\n[INFO]: The sound positions result has been saved to {outpath}\n")

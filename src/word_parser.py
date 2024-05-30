@@ -155,6 +155,8 @@ def main():
     df["ParsedTokens"] = df['Token'].apply(parse)
 
     # make a wide dataframe
+    print(df)
+    print(range(df["ParsedTokens"].apply(len).max()))
     wide_df = pd.DataFrame(df["ParsedTokens"].to_list(), columns=[f"Token_{i}" for i in range(df["ParsedTokens"].apply(len).max())])
 
     # make result df
