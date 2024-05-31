@@ -45,7 +45,7 @@ def main():
         sound_positions = []
 
         # Iterate through the split characters row (the row underneath)
-        for char in df.iloc[i + 1, 2:]:
+        for char in df.iloc[i + 1, 1:]:
             if pd.notnull(char) and char not in exclude_chars:  # Check if the character is not null and not in the exclusion list
                 sound_positions.append(char)
 
