@@ -125,7 +125,7 @@ Focusing just on vowels, we can present the results either by ordering the vowel
 To create results with vowels arranged alphabetically:
 
 ```bash
-python src/vowel_plot.py --filename FILENAME --alphabetical
+python src/vowels_plot.py --filename FILENAME --alphabetical
 ```
 
 To plot based on descending frequency, simply remove the final flag:
