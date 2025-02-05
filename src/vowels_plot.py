@@ -31,8 +31,7 @@ def load_data(filename):
 
     # Lowercase the words in the column and convert to string type
     df[column_name] = df[column_name].astype(str).str.lower()
-    df.dropna(inplace=True)
-
+    
     return df
 
 def process_vowels(df):
