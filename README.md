@@ -131,7 +131,7 @@ python src/vowels_plot.py --filename FILENAME --alphabetical
 To plot based on descending frequency, simply remove the final flag:
 
 ```bash
-python src/vowel_plot.py --filename FILENAME
+python src/vowels_plot.py --filename FILENAME
 ```
 
 For consonants, the relevant script is ```src/consonants_plot.py```, which can be run in the same way.
