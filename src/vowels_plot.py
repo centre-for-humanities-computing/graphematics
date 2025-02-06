@@ -80,14 +80,17 @@ def process_vowels(df):
         # Exclude words that begin with '*' or '!'
         cleaned = re.sub('\*.*?\*', '', word)
         cleaned = re.sub('\!.*?\!', '', cleaned)
-            
-        matches = compiled_pattern.findall(cleaned)
-        if matches:
-            for vowel_sequence in matches:
-                if vowel_sequence in vowel_combinations:
-                    vowel_combinations[vowel_sequence] += frequency
-                else:
-                    vowel_combinations[vowel_sequence] = frequency
+        # removing empty cells
+        if cleaned=="nan":
+            pass    
+        else:
+            matches = compiled_pattern.findall(cleaned)
+            if matches:
+                for vowel_sequence in matches:
+                    if vowel_sequence in vowel_combinations:
+                        vowel_combinations[vowel_sequence] += frequency
+                    else:
+                        vowel_combinations[vowel_sequence] = frequency
 
     return vowel_combinations
 
