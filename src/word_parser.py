@@ -149,15 +149,14 @@ def main():
     # define paths
     datapath = os.path.join("data", "2_segmented_wordlists", args.filename)
     df = pd.read_excel(datapath)
-    rows_to_drop = df[df["Token"]==''].index
-    # Drop rows where the 'Token' column is empty or NaN
-    df = df[df['Token'].notna() & (df['Token'] != '')]
-    df = df.reset_index(drop=True)
+    df = df.dropna()
 
     # apply parse function
     df["ParsedTokens"] = df['Token'].apply(parse)
 
     # make a wide dataframe
+    print(df)
+    print(range(df["ParsedTokens"].apply(len).max()))
     wide_df = pd.DataFrame(df["ParsedTokens"].to_list(), columns=[f"Token_{i}" for i in range(df["ParsedTokens"].apply(len).max())])
 
     # make result df

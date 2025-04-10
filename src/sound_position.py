@@ -26,9 +26,9 @@ def main():
     inpath = os.path.join("data", "4_annotated_segmented", args.filename)
     # Step 1: Read the Excel file into a DataFrame
     df = pd.read_excel(inpath)
-    #col_remove = ["Label", "Translation", "Notes"]
-    #df.drop(columns=col_remove, inplace=True)
-
+    col_remove = ["Label", "Translation", "Notes"]
+    df.drop(columns=col_remove, inplace=True)
+    
     # get the sound position list
     exclude_chars = ['#', '<de>', '<en>', '[ig]', 'h', 'l', 'v','|ß|','ü']
 
