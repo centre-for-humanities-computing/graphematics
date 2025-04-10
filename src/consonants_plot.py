@@ -70,20 +70,23 @@ def process_consonants(df):
         cleaned = re.sub('\*.*?\*', '', word)
         cleaned = re.sub('\!.*?\!', '', cleaned)
         
-        clusters = re.findall(r'\:(.*?)\:', cleaned)
-        if clusters:
-            for consonant_sequence in clusters:
-                if consonant_sequence in consonant_combinations:
-                    consonant_combinations[consonant_sequence] += frequency
-                else:
-                    consonant_combinations[consonant_sequence] = frequency
+        if cleaned=="nan":
+            pass    
         else:
-            consonants = re.findall(pattern, cleaned)
-            for consonant in consonants:
-                if consonant in consonant_combinations:
-                    consonant_combinations[consonant] += frequency
-                else:
-                    consonant_combinations[consonant] = frequency
+            clusters = re.findall(r'\:(.*?)\:', cleaned)
+            if clusters:
+                for consonant_sequence in clusters:
+                    if consonant_sequence in consonant_combinations:
+                        consonant_combinations[consonant_sequence] += frequency
+                    else:
+                        consonant_combinations[consonant_sequence] = frequency
+            else:
+                consonants = re.findall(pattern, cleaned)
+                for consonant in consonants:
+                    if consonant in consonant_combinations:
+                        consonant_combinations[consonant] += frequency
+                    else:
+                        consonant_combinations[consonant] = frequency
 
     return consonant_combinations
 
